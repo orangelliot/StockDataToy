@@ -1,1 +1,1 @@
-sample
+the goal of this project is to do some exploratory data analysis using spark to find some trends in stock price based on different indicators
