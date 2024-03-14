@@ -15,7 +15,7 @@ with SparkSession\
     .appName("stockdatatoy")\
     .getOrCreate() as spark:
 
-    nasdaq_screener = ps.read_csv('./nasdaq_screener.csv')
+    nasdaq_screener = ps.read_csv('nasdaq_screener.csv', index_col="Symbol")
 
     print(nasdaq_screener.info())
 
@@ -25,9 +25,6 @@ AV_KEY = os.getenv('AV_KEY')
 FUNCTION = 'TIME_SERIES_INTRADAY'
 SYMBOL = 'IBM'
 INTERVAL = '5min'
-
-nasdaq_screener = sc.read_csv('./nasdaq_screener.csv')
-print(nasdaq_screener.info())
 
 exit()
 
