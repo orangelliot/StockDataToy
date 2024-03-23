@@ -5,6 +5,7 @@ os.environ['PYSPARK_PYTHON']='C:/Users/ellio/miniconda3/envs/bigdata/python.exe'
 
 import requests
 import pyspark.pandas as ps
+import pandas as pd
 from pyspark.sql import SparkSession
 from dotenv import load_dotenv
 from alpha_vantage.timeseries import TimeSeries
@@ -25,8 +26,14 @@ with SparkSession\
 
     ts = TimeSeries(key=AV_KEY, output_format='pandas')
 
-    #nasdaq_screener = ps.read_csv('nasdaq_screener.csv', index_col='Symbol')
+    nasdaq_screener = pd.read_csv('nasdaq_screener.csv', index_col='Symbol')
 
-    #print(nasdaq_screener.info())
+    industries = nasdaq_screener.Industry.unique()
 
-    print(ts.get_weekly(symbol='IBM'))
+    print(ts.get_weekly_adjusted('MSFT'))
+    exit()
+    for ind in industries:
+        ind_companies = nasdaq_screener[nasdaq_screener['Industry'] == ind]
+        weekly_ind_avg = None
+        for company in ind_companies:
+            ts.get_weekly_adjusted(company)
